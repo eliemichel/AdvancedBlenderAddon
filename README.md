@@ -5,7 +5,12 @@ Many great examples are provided as Python templates in Blender, but none of the
 
 This repository intends to give a **starter kit** as well as to illustrate and intensively comment **design patterns** commonly used in advanced Blender add-ons. It also gives in the comments pointers to related documentation.
 
+Feedback
+--------
+
 **Feel free to suggest or request new examples.** I'll happily make this as exhaustive as possible so that it becomes a reference for add-on developers.
+
+Feedback can be given through [issues](https://github.com/eliemichel/AdvancedBlenderAddon/issues), the [BlenderArtists thread](https://github.com/eliemichel/AdvancedBlenderAddon/issues) or on [twitter](https://twitter.com/exppad).
 
 Usage
 -----
