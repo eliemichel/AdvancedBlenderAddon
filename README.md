@@ -10,7 +10,7 @@ Feedback
 
 **Feel free to suggest or request new examples.** I'll happily make this as exhaustive as possible so that it becomes a reference for add-on developers.
 
-Feedback can be given through [issues](https://github.com/eliemichel/AdvancedBlenderAddon/issues), the [BlenderArtists thread](https://github.com/eliemichel/AdvancedBlenderAddon/issues) or on [twitter](https://twitter.com/exppad).
+Feedback can be given through [issues](https://github.com/eliemichel/AdvancedBlenderAddon/issues), the [BlenderArtists thread](https://blenderartists.org/t/wip-advanced-blender-addon-starter-kit/1253453) or on [twitter](https://twitter.com/exppad).
 
 Usage
 -----
