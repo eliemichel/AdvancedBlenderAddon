@@ -38,36 +38,36 @@ bl_info = {
 # This feature only reloads this __init__ file, so we force reloading all
 # other files here.
 
-def list_all_modules():
-    """List all python files, to drive hot reloading in Blender
-    NB: this does not recurse in subdirectories"""
-    import pathlib
+# When loaded is already in local, we know this is called by "Reload plugins"
+if locals().get('loaded') or True:
+    loaded = False
+    from importlib import reload
+    from sys import modules
     import os
-    d = pathlib.Path(__file__).parent.absolute()
-    (_, _, filenames) = next(os.walk(d))
-    return [f[:-3] for f in filenames if f.endswith(".py") and f != "__init__.py"]
 
-def reload_all_modules():
-    """Reload all modules from the current directory"""
-    print("Reloading submodules...")
-    import importlib
-    modules = list_all_modules()
-    for i in range(5):
-        # try and reach a fixed point, needed because we don't
-        # know in which order the modules import each others
-        for mod_name in modules:
-            mod = locals().get(mod_name)
-            try:
-                if mod is None:
-                    mod = importlib.import_module('.' + mod_name, __name__)
-                importlib.reload(mod)
-            except Exception as e:
-                print(f"Exception while reloading {mod_name}:\n{e}")
-                pass
-
-# When bpy is already in local, we know this is called by "Reload plugins"
-if "bpy" in locals():
-    reload_all_modules()
+    for i in range(3): # Try up to three times, in case of ordering errors
+        err = False
+        modules[__name__] = reload(modules[__name__])
+        submodules = list(modules.items())
+        for name, module in submodules:
+            if name.startswith(f"{__package__}."):
+                if module.__file__ is None:
+                    # This is a namespace, no need to do anything
+                    continue
+                elif not os.path.isfile(module.__file__):
+                    # File has been removed
+                    del modules[name]
+                    del globals()[name]
+                else:
+                    print(f"Reloading: {module}")
+                    try:
+                        globals()[name] = reload(module)
+                    except Exception as e:
+                        print(e)
+                        err = True
+        if not err:
+            break
+        #del reload, modules
 
 # -------------------------------------------------------------------
 

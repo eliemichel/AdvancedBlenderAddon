@@ -47,6 +47,7 @@ class AdvancedBlenderAddonPanel(Panel):
 
         self.draw_profiling(scene, layout)
 
+        layout.prop(scene, "show_debug_icons")
         if scene.show_debug_icons:
             layout.separator()
             self.draw_icon_chart(layout)
